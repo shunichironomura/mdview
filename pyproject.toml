@@ -1,6 +1,6 @@
 [project]
 name = "mdview-tui"
-version = "0.1.0"
+version = "0.0.1.a1"
 description = "CLI tool to view markdown files in the terminal."
 readme = "README.md"
 requires-python = ">=3.14"
@@ -8,7 +8,6 @@ authors = [
   { name = "Shunichiro Nomura", email = "nomura@space.t.u-tokyo.ac.jp" },
 ]
 classifiers = [
-  "Private :: Do Not Upload",
   "Programming Language :: Python",
   "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.14",

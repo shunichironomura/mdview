@@ -3,7 +3,7 @@ revision = 3
 requires-python = ">=3.14"
 
 [options]
-exclude-newer = "2026-04-04T10:21:19.691475Z"
+exclude-newer = "2026-04-04T10:27:55.323872Z"
 exclude-newer-span = "P7D"
 
 [[package]]
@@ -158,7 +158,7 @@ wheels = [
 
 [[package]]
 name = "mdview-tui"
-version = "0.1.0"
+version = "0.0.1a1"
 source = { editable = "." }
 dependencies = [
     { name = "textual", extra = ["syntax"] },
