@@ -7,3 +7,9 @@ This is a thin wrapper around Textual's Markdown widget to view markdown files i
 ```bash
 uv tool install mdview-tui
 ```
+
+## Usage
+
+```bash
+mdview <markdown-file>
+```
