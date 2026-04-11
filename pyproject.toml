@@ -1,6 +1,6 @@
 [project]
 name = "mdview-tui"
-version = "0.0.2"
+version = "0.0.3"
 description = "CLI tool to view markdown files in the terminal."
 readme = "README.md"
 requires-python = ">=3.14"
