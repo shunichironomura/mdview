@@ -37,50 +37,6 @@ jobs:
       - name: Run ruff
         run: uv run -- ruff check
 
-  mypy:
-    if: github.event.pull_request.draft == false
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57 # v8.0.0
-        with:
-          version: ${{ env.UV_VERSION }}
-
-      - name: Set up Python
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
-        with:
-          python-version-file: .python-version
-
-      - name: Install the project
-        run: uv sync --no-dev --group typing
-
-      - name: Run mypy
-        run: uv run -- mypy .
-
-  basedpyright:
-    if: github.event.pull_request.draft == false
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57 # v8.0.0
-        with:
-          version: ${{ env.UV_VERSION }}
-
-      - name: Set up Python
-        uses: actions/setup-python@a309ff8b426b58ec0e2a45f0f869d46889d02405 # v6.2.0
-        with:
-          python-version-file: .python-version
-
-      - name: Install the project
-        run: uv sync --no-dev --group typing
-
-      - name: Run pyright
-        run: uv run -- basedpyright .
-
   ty:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
@@ -156,7 +112,7 @@ jobs:
 
   collect:
     if: github.event.pull_request.draft == false
-    needs: [ruff, mypy, pytest, basedpyright, ty, markdownlint]
+    needs: [ruff, pytest, ty, markdownlint]
     runs-on: ubuntu-latest
     steps:
       - name: Collect results
