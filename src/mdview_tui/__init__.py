@@ -24,8 +24,7 @@ def _main(
     if not file.is_file():
         err_console.print(f"[bold red]Error:[/] Not a file: [yellow]{file}[/]")
         raise typer.Exit(code=1)
-    text = file.read_text()
-    MarkdownViewerApp(text, title=str(file)).run()
+    MarkdownViewerApp(file, title=str(file)).run()
 
 
 def main() -> None:
