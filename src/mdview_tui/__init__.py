@@ -1,23 +1,33 @@
 """mdview_tui is a terminal-based markdown viewer built with Textual."""
 
-import sys
+from pathlib import Path  # noqa: TC003
+from typing import Annotated
+
+import typer
+from rich.console import Console
 
 from .app import MarkdownViewerApp
+
+err_console = Console(stderr=True)
+
+
+def _main(
+    file: Annotated[
+        Path,
+        typer.Argument(help="Path to the markdown file to view."),
+    ],
+) -> None:
+    """View markdown files in the terminal."""
+    if not file.exists():
+        err_console.print(f"[bold red]Error:[/] File not found: [yellow]{file}[/]")
+        raise typer.Exit(code=1)
+    if not file.is_file():
+        err_console.print(f"[bold red]Error:[/] Not a file: [yellow]{file}[/]")
+        raise typer.Exit(code=1)
+    text = file.read_text()
+    MarkdownViewerApp(text, title=str(file)).run()
 
 
 def main() -> None:
     """Entry point for the mdview_tui application."""
-    if len(sys.argv) > 1 and sys.argv[1] != "-":
-        path = sys.argv[1]
-        with open(path) as f:  # noqa: PTH123
-            text = f.read()
-        title = path
-    else:
-        if sys.stdin.isatty():
-            print("Usage: mdview <file.md>", file=sys.stderr)  # noqa: T201
-            print("       cat file.md | mdview", file=sys.stderr)  # noqa: T201
-            sys.exit(1)
-        text = sys.stdin.read()
-        title = "stdin"
-
-    MarkdownViewerApp(text, title=title).run()
+    typer.run(_main)
