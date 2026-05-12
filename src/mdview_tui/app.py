@@ -4,6 +4,7 @@ from pathlib import Path  # noqa: TC003
 
 from textual.app import App, ComposeResult
 from textual.binding import Binding
+from textual.containers import VerticalScroll
 from textual.widgets import Footer, Markdown
 
 
@@ -13,6 +14,8 @@ class MarkdownViewerApp(App):
     BINDINGS = [  # noqa: RUF012
         Binding("q", "quit", "Quit"),
         Binding("r", "refresh", "Refresh"),
+        Binding("j,down", "scroll_down", "Scroll down", show=False),
+        Binding("k,up", "scroll_up", "Scroll up", show=False),
     ]
 
     CSS = """
@@ -32,7 +35,8 @@ class MarkdownViewerApp(App):
 
     def compose(self) -> ComposeResult:
         """Compose the UI components for the application."""
-        yield Markdown(self._file.read_text())
+        with VerticalScroll():
+            yield Markdown(self._file.read_text())
         yield Footer()
 
     def on_mount(self) -> None:
@@ -43,3 +47,11 @@ class MarkdownViewerApp(App):
         """Re-read the markdown file from disk and update the display."""
         text = self._file.read_text()
         await self.query_one(Markdown).update(text)
+
+    def action_scroll_down(self) -> None:
+        """Scroll the markdown content down by one line."""
+        self.query_one(VerticalScroll).scroll_down()
+
+    def action_scroll_up(self) -> None:
+        """Scroll the markdown content up by one line."""
+        self.query_one(VerticalScroll).scroll_up()
