@@ -102,7 +102,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Run rumdl
-        uses: rvben/rumdl@b3b47c1ee79cfbc184eabf2ccef15d323f3ac3be # v0.2.57
+        uses: rvben/rumdl@023027472dbcb502aeb89760f4122e2235d36490 # v0.2.58
         with:
           version: "0.2.55"
           report-type: annotations
